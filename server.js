@@ -25,7 +25,7 @@ mongoose.connect(mongoUri, {
 
 const authRoutes = require('./routes/authRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
-const leaveRequestRoutes = require('./routes/leaveRequestRoutes');
+const leaveRequestRoutes = require('./routes/LeaveRequestRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const performanceRoutes = require('./routes/performanceRoutes');
 const recruitmentRoutes = require('./routes/recruitmentRoutes');
