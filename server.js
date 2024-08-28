@@ -31,17 +31,21 @@ const performanceRoutes = require('./routes/performanceRoutes');
 const recruitmentRoutes = require('./routes/recruitmentRoutes');
 const reportsRoutes = require('./routes/reportsRoutes'); 
 const analyticsRoutes= require('./routes/analyticsRoutes');
-const mainRoutes= require('./routes/mainRoutes')
+const mainRoutes= require('./routes/mainRoutes');
+const chartRoutes = require('./routes/chartRoutes');
+const todoRoutes = require('./routes/todoRoutes');
 
 app.use('/api/employees', employeeRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/leaverequest', leaveRequestRoutes);
-app.use('/api/attendance', attendanceRoutes);
+app.use('/api/leaves', leaveRequestRoutes);
+app.use('/api', attendanceRoutes);
 app.use('/api/performance', performanceRoutes);
 app.use('/api/recruitment', recruitmentRoutes);
 app.use('/api/reports', reportsRoutes); 
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/main',mainRoutes);
+app.use('/api', chartRoutes);
+app.use('/api', todoRoutes);
 
 app.get('/', (req, res) => {
   res.send('API is running...');

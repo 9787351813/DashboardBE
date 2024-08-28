@@ -1,9 +1,10 @@
+// routes/leaveRequests.js
 const express = require('express');
-const { createLeave, getLeaves } = require('../controllers/LeaveRequestController');
-const authenticate = require('../middleware/authenticate');
 const router = express.Router();
+const leaveRequestController = require('../controllers/LeaveRequestController');
 
-router.post('/', authenticate, createLeave);
-router.get('/', authenticate, getLeaves);
+router.get('/', leaveRequestController.getAllLeaves);
+router.post('/', leaveRequestController.createLeaveRequest);
+router.delete('/:id', leaveRequestController.deleteLeaveRequest);
 
 module.exports = router;

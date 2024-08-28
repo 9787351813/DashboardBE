@@ -1,12 +1,9 @@
-// models/Candidate.js
 const mongoose = require('mongoose');
 
-const RecruitmentSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  position: { type: String, required: true },
-  status: { type: String, required: true },
-  source: { type: String, required: true },
-  appliedDate: { type: Date, default: Date.now },
+const recruitmentSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    position: { type: String, required: true },
+    status: { type: String, default: 'Pending' },
 });
 
-module.exports = mongoose.model('Recruitment', RecruitmentSchema);
+module.exports = mongoose.model('Recruitment', recruitmentSchema);

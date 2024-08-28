@@ -1,21 +1,35 @@
-const Leave = require('../models/LeaveRequest');
+// controllers/leaveRequestController.js
+const LeaveRequest = require('../models/LeaveRequest');
 
-exports.createLeave = async (req, res) => {
-  const { type, startDate, endDate } = req.body;
+exports.getAllLeaves = async (req, res) => {
   try {
-    const leave = new Leave({ userId: req.user.id, type, startDate, endDate });
-    await leave.save();
-    res.status(201).json(leave);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const leaves = await LeaveRequest.find();
+    res.json(leaves);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-exports.getLeaves = async (req, res) => {
+exports.createLeaveRequest = async (req, res) => {
+  const { type, start, end, status } = req.body;
+
   try {
-    const leaves = await Leave.find({ userId: req.user.id });
-    res.json(leaves);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const leaveRequest = new LeaveRequest({ type, start, end, status });
+    await leaveRequest.save();
+    res.status(201).json(leaveRequest);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+exports.deleteLeaveRequest = async (req, res) => {
+  try {
+    const leave = await LeaveRequest.findByIdAndDelete(req.params.id); // Use LeaveRequest here
+    if (!leave) {
+      return res.status(404).send('Leave request not found');
+    }
+    res.status(200).send('Leave request deleted');
+  } catch (error) {
+    res.status(500).send(error.message);
   }
 };

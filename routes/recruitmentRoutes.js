@@ -1,43 +1,18 @@
-// routes/candidates.js
 const express = require('express');
-const Candidate = require('../models/Recruitment');
 const router = express.Router();
+const {
+  getrecruitment,
+  addrecruitment,
+  updaterecruitment,
+  deleterecruitment,
+} = require('../controllers/recruitmentController');
 
-// Middleware for authentication
-const auth = (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
-  if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
+router.get('/', getrecruitment); // Ensure getrecruitment is defined
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    res.status(401).json({ message: 'Token is not valid' });
-  }
-};
+router.post('/', addrecruitment); // Ensure addrecruitment is defined
 
-// Get all candidates
-router.get('/', auth, async (req, res) => {
-  try {
-    const candidates = await Candidate.find();
-    res.json(candidates);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+router.patch('/:id', updaterecruitment); // Ensure updaterecruitment is defined
 
-// Create a candidate
-router.post('/', auth, async (req, res) => {
-  const { name, position, status, source } = req.body;
-
-  try {
-    const candidate = new Candidate({ name, position, status, source });
-    await candidate.save();
-    res.status(201).json(candidate);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+router.delete('/:id', deleterecruitment); // Ensure deleterecruitment is defined
 
 module.exports = router;
